@@ -1,0 +1,74 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Ingredient {
+  id       Int    @id @default(autoincrement())
+  recipeId Int
+  name     String
+  amount   Int
+  unit     String
+  recipe   Recipe @relation(fields: [recipeId], references: [id])
+}
+
+model Step {
+  id       Int    @id @default(autoincrement())
+  recipeId Int
+  number   Int
+  content  String
+  recipe   Recipe @relation(fields: [recipeId], references: [id])
+
+  @@unique([recipeId, number])
+}
+
+model Recipe {
+  id          Int          @id @default(autoincrement())
+  userId      String
+  name        String
+  description String
+  ingredients Ingredient[]
+  steps       Step[]
+  comments    Comment[]
+  ratings     Rating[]
+  user        User         @relation(fields: [userId], references: [id])
+}
+
+model User {
+  id       String    @id
+  email    String    @unique
+  name     String
+  comments Comment[]
+  ratings  Rating[]
+  recipes  Recipe[]
+}
+
+model Comment {
+  id       Int    @id @default(autoincrement())
+  userId   String
+  recipeId Int
+  content  String
+  recipe   Recipe @relation(fields: [recipeId], references: [id])
+  user     User   @relation(fields: [userId], references: [id])
+}
+
+model Rating {
+  id       Int    @id @default(autoincrement())
+  userId   String
+  recipeId Int
+  value    Int
+  recipe   Recipe @relation(fields: [recipeId], references: [id])
+  user     User   @relation(fields: [userId], references: [id])
+
+  @@unique([recipeId, userId])
+}

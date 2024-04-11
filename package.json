@@ -1,5 +1,5 @@
 {
-  "name": "projet-renforcement-backend",
+  "name": "sup-de-recette",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,19 +9,24 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@prisma/client": "^5.12.1",
+    "firebase": "^10.10.0",
+    "next": "14.1.4",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.1.4"
+    "react-hook-form": "^7.51.2"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@faker-js/faker": "^8.4.1",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
+    "daisyui": "^4.10.1",
+    "eslint": "^8",
+    "eslint-config-next": "14.1.4",
     "postcss": "^8",
     "tailwindcss": "^3.3.0",
-    "eslint": "^8",
-    "eslint-config-next": "14.1.4"
+    "typescript": "^5"
   }
 }
